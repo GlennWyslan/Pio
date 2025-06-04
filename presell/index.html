@@ -948,6 +948,23 @@ h6 {
 
 
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const currentParams = new URLSearchParams(window.location.search);
+        if (![...currentParams].length) return;
+
+        const links = document.querySelectorAll('a[href]');
+        links.forEach(link => {
+            const linkUrl = new URL(link.href, window.location.origin);
+            currentParams.forEach((value, key) => {
+                if (!linkUrl.searchParams.has(key)) {
+                    linkUrl.searchParams.append(key, value);
+                }
+            });
+            link.href = linkUrl.toString();
+        });
+    });
+</script>
 
 
 
